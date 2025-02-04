@@ -10,18 +10,19 @@ def contains_forbidden_strings(s):
 def contains_need_strings(s):
     return any(x in s for x in ["7", "5", "6", "9", "1"])
 
-def data_agumentation_path(path):
+def data_augmentation_path(path):
     # record filenames 
     txt_content_list = []
     img_list = []
     content = []
-    
+    img_path = ""
     # get dataset annotation list 
     for i in range(len(path)):
         for root, dirs, files in os.walk(path[i], topdown = 0):
             for name in files:
-                img_list.append(str(os.path.join(path[i],name)))
-                f = open(os.path.join(path[i],name), 'r')
+                img_path = str(path[i]) + "/" + str(name)
+                img_list.append(img_path)
+                f = open((img_path), 'r')
                 for line in f.readlines():
                     if line[1] != " ":
                         n = line[:2]
@@ -48,4 +49,4 @@ def data_agumentation_path(path):
     return txt_content_list, img_class, img_increase, img_increase_list
 
 if __name__ == "__main__":
-    data_agumentation_path(['dataset_test/train/labels', 'dataset_test/valid/labels', 'dataset_test/test/labels'])
+    data_augmentation_path(['dataset_test/train/labels', 'dataset_test/valid/labels', 'dataset_test/test/labels'])
