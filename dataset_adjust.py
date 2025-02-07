@@ -24,13 +24,13 @@ for i in range(len(img_file_list)):
 
 # move 172 files from train file to valid file
 for i in range(172):
-    shutil.move(os.path.join(train_img_dir,img_file_list[i]),os.path.join("dataset_test(1)/valid/images",img_file_list[i]))
-    shutil.move(os.path.join(train_label_dir,label_file_list[i]), os.path.join("dataset_test(1)/valid/labels",label_file_list[i]))
+    shutil.move(os.path.join(train_img_dir,img_file_list[i]),os.path.join("dataset/valid/images",img_file_list[i]))
+    shutil.move(os.path.join(train_label_dir,label_file_list[i]), os.path.join("dataset/valid/labels",label_file_list[i]))
 
 # move 57 files from train file to test file
 for i in range(57):
-    shutil.move(os.path.join(train_img_dir,img_file_list[i+172]),os.path.join("dataset_test(1)/test/images",img_file_list[i+172]))
-    shutil.move(os.path.join(train_label_dir,label_file_list[i+172]), os.path.join("dataset_test(1)/test/labels",label_file_list[i+172]))
+    shutil.move(os.path.join(train_img_dir,img_file_list[i+172]),os.path.join("dataset/test/images",img_file_list[i+172]))
+    shutil.move(os.path.join(train_label_dir,label_file_list[i+172]), os.path.join("dataset/test/labels",label_file_list[i+172]))
 
 print("finish")
 
