@@ -2,7 +2,5 @@ yolov8n.pt
 yolo11n.pt
 runs
 test*
-dataset_raw*
-dataset_test*
-dataset*
+dataset
 __pycache__/
