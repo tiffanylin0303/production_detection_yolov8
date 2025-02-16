@@ -88,4 +88,5 @@ for i in range(len(img_list)):
     with open(aug_label_path, "w") as f:
         f.write("\n".join(aug_label_txt))
         
-# print("數據增強完成，已儲存到 augmented 資料夾")
+        
+print("數據增強完成，已儲存到 augmented 資料夾")
