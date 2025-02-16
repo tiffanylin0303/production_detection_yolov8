@@ -1,7 +1,6 @@
 import os
 import shutil
 
-
 train_img_dir = "dataset/train/images"
 train_label_dir = "dataset/train/labels"
 
