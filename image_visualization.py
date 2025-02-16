@@ -51,7 +51,7 @@ for i in range(10):
     aug_image_height, aug_image_width = aug_image.shape[:2]
     
     # read aug txt file
-    aug_label_path = f'dataset/aug/labels/aug_{i}.txt'
+    aug_label_path = f'dataset/aug/labels/aug.txt'
     with open(aug_label_path, 'r') as file:
         lines = file.readlines()
     
