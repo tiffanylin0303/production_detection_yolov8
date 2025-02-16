@@ -54,7 +54,7 @@ def data_augmentation_path(path):
             else:
                 print(f"File does not exist: {new_path}")
 
-    return txt_content_list, img_class, img_list
+    return txt_content_list, img_class, img_list, img_increase, img_increase_path
 
 if __name__ == "__main__":
     data_augmentation_path(['dataset/train/labels'])
