@@ -80,14 +80,12 @@ for i in range(len(img_increase_path)):
     for bbox, class_id in zip(bboxes, category_ids):
         aug_label_txt.append(f"{class_id} " + " ".join(map(str, bbox)))
 
-    # photo shapen way1 -- laplacian (拉普拉斯) + unsharp masking 
+    # photo shapen way1 -- laplacian (拉普拉斯) + unsharp masking (USM)
     # Read image
     img = cv2.imread(img_path)
 
     # 使用拉普拉斯運算子
     laplacian = cv2.Laplacian(img, cv2.CV_64F)
-
-    # 將負值轉為正值 
     laplacian = cv2.convertScaleAbs(laplacian)
 
     # 將原始影像和拉普拉斯增強的影像結合
