@@ -34,22 +34,28 @@ os.makedirs(AUG_LABELS_DIR, exist_ok=True)
 #     A.VerticalFlip(p=1),         
 # ], bbox_params=A.BboxParams(format='yolo', label_fields=['category_ids']))
 
-augmentor4 = A.Compose([
+# augmentor4 = A.Compose([
+#     A.HorizontalFlip(p=0),       
+#     A.VerticalFlip(p=0),         
+#     A.ColorJitter(brightness=0.7, contrast=0.7, saturation=0.7, hue=0.7, p=0.25),
+#     A.ToGray(p=0.5),
+# ], bbox_params=A.BboxParams(format='yolo', label_fields=['category_ids']))
+
+augmentor5 = A.Compose([
     A.HorizontalFlip(p=0),       
-    A.VerticalFlip(p=0),         
-    # A.ColorJitter(brightness=0.7, contrast=0.7, saturation=0.7, hue=0.7, p=1),
-    A.ToGray(p=0.5),
+    A.VerticalFlip(p=0), 
+    A.GaussianBlur(blur_limit=3, p=1),
 ], bbox_params=A.BboxParams(format='yolo', label_fields=['category_ids']))
 
-# augmentor5 = A.Compose([
-#     A.GaussianBlur(blur_limit=3, p=0.5),
-#     A.GaussNoise(var_limit=(10.0, 50.0), p=0.5),
-# ], bbox_params=A.BboxParams(format='yolo', label_fields=['category_ids']))
+augmentor6 = A.Compose([
+    A.HorizontalFlip(p=0),       
+    A.VerticalFlip(p=0), 
+], bbox_params=A.BboxParams(format='yolo', label_fields=['category_ids']))
 
 # Exrcute data augmentation
 for i in range(len(img_increase_path)):
-    img_path = img_list[i].replace("labels", "images").replace(".txt", ".jpg")
-    label_path = img_list[i]
+    img_path = img_increase_path[i].replace("labels", "images").replace(".txt", ".jpg")
+    label_path = img_increase_path[i]
 
     # read images
     image = cv2.imread(img_path)
@@ -69,24 +75,31 @@ for i in range(len(img_increase_path)):
         bboxes.append([x, y, w, h])
         category_ids.append(class_id)
 
-    # execute data augmentation
-    augmented = augmentor4(image=image, bboxes=bboxes, category_ids=category_ids)
-    aug_img = augmented['image']
-    aug_bboxes = augmented['bboxes']
-
     # transform into yolo label
     aug_label_txt = []
-    for bbox, class_id in zip(aug_bboxes, category_ids):
+    for bbox, class_id in zip(bboxes, category_ids):
         aug_label_txt.append(f"{class_id} " + " ".join(map(str, bbox)))
 
-    # save data augmentation images
-    aug_img_path = os.path.join(AUG_IMAGES_DIR, f'aug_{i}.jpg')
-    aug_label_path = os.path.join(AUG_LABELS_DIR, f'aug_{i}.txt')
+    # photo shapen way1 -- laplacian (拉普拉斯) + unsharp masking 
+    # Read image
+    img = cv2.imread(img_path)
 
-    cv2.imwrite(aug_img_path, aug_img)
+    # 使用拉普拉斯運算子
+    laplacian = cv2.Laplacian(img, cv2.CV_64F)
+
+    # 將負值轉為正值 
+    laplacian = cv2.convertScaleAbs(laplacian)
+
+    # 將原始影像和拉普拉斯增強的影像結合
+    sharpened_img = cv2.addWeighted(img, 1.5, laplacian, -0.5, 0)
+
+    # save data augmentation images
+    aug_img_path = img_path.replace(".jpg", "_sharpen.jpg")
+    aug_label_path = label_path.replace(".txt", "_sharpen.txt")
+
+    cv2.imwrite(aug_img_path, sharpened_img)
 
     with open(aug_label_path, "w") as f:
         f.write("\n".join(aug_label_txt))
-        
-        
+
 print("數據增強完成，已儲存到 augmented 資料夾")

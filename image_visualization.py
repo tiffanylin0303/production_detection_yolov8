@@ -6,7 +6,7 @@ train_path = ['dataset/train/labels']
 aug_path = ['dataset/train/labels']
 image_path = ['dataset/train/images']
 class_names = ['CPU_FAN_NO_Screws', 'CPU_FAN_Screw_loose', 'CPU_FAN_Screws', 'CPU_fan', 'CPU_fan_port', 'CPU_fan_port_detached', 'Incorrect_Screws', 'Loose_Screws', 'No_Screws', 'Scratch', 'Screws']
-txt_content_list, img_class, img_list = DetectClass.data_augmentation_path(train_path)
+txt_content_list, img_class, img_list, img_increase, img_increase_path = DetectClass.data_augmentation_path(train_path)
 
 for i in range(10):
     # read image
@@ -46,12 +46,12 @@ for i in range(10):
     cv2.destroyAllWindows()
     
     # read aug image
-    aug_image_path = f'dataset/aug/images/aug_{i}.jpg'
+    aug_image_path = r"C:\Users\user\Tiffany\production_detection_yolov8\dataset\train\images\21_jpg.rf.3adc8ed0b97379937877e41f9cbaf729_sharpen.jpg"
     aug_image = cv2.imread(aug_image_path)
     aug_image_height, aug_image_width = aug_image.shape[:2]
     
     # read aug txt file
-    aug_label_path = f'dataset/aug/labels/aug.txt'
+    aug_label_path = r"C:\Users\user\Tiffany\production_detection_yolov8\dataset\train\labels\21_jpg.rf.3adc8ed0b97379937877e41f9cbaf729_sharpen.txt"
     with open(aug_label_path, 'r') as file:
         lines = file.readlines()
     
