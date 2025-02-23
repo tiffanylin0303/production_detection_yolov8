@@ -81,10 +81,10 @@ for i in range(len(img_increase_path)):
         aug_label_txt.append(f"{class_id} " + " ".join(map(str, bbox)))
 
     # photo shapen way1 -- unsharp masking (USM) with laplacian (拉普拉斯)
-    image = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
+    image = cv2.imread(img_path)
     laplacian = cv2.Laplacian(image, cv2.CV_64F)
     laplacian = cv2.convertScaleAbs(laplacian)
-    sharpened_img = cv2.addWeighted(image, 1.5, laplacian, -0.5, 0)
+    sharpened_img = cv2.addWeighted(image, 1.2, laplacian, -0.2, 0)
 
     # save data augmentation images
     aug_img_path = img_path.replace(".jpg", "_sharpen(laplacian).jpg")
@@ -95,22 +95,22 @@ for i in range(len(img_increase_path)):
     with open(aug_label_path, "w") as f:
         f.write("\n".join(aug_label_txt))
     
-    # photo shapen way2 -- unsharp masking (USM) with GaussianBlur (高斯模糊)
-    # GaussianBlur
-    blurred = cv2.GaussianBlur(image, (5, 5), 0)
+    # # photo shapen way2 -- unsharp masking (USM) with GaussianBlur (高斯模糊)
+    # # GaussianBlur
+    # blurred = cv2.GaussianBlur(image, (5, 5), 0)
     
-    # USM
-    sharpened_img = cv2.addWeighted(image, 1.5, blurred, -0.5, 0)
+    # # USM
+    # sharpened_img = cv2.addWeighted(image, 1.5, blurred, -0.5, 0)
     
-    # cv2.imshow('Original Image', image)
-    # cv2.imshow('USM Enhanced Image', sharpened_img)
+    # # cv2.imshow('Original Image', image)
+    # # cv2.imshow('USM Enhanced Image', sharpened_img)
     
-    # save data augmentation images
-    aug_img_path = img_path.replace(".jpg", "_sharpen(Gauss).jpg")
-    aug_label_path = label_path.replace(".txt", "_sharpen(Gauss).txt")
+    # # save data augmentation images
+    # aug_img_path = img_path.replace(".jpg", "_sharpen(Gauss).jpg")
+    # aug_label_path = label_path.replace(".txt", "_sharpen(Gauss).txt")
 
-    cv2.imwrite(aug_img_path, sharpened_img)
+    # cv2.imwrite(aug_img_path, sharpened_img)
 
-    with open(aug_label_path, "w") as f:
-        f.write("\n".join(aug_label_txt))
-print("數據增強完成，已儲存到 augmented 資料夾")
+    # with open(aug_label_path, "w") as f:
+    #     f.write("\n".join(aug_label_txt))
+print("數據增強完成")

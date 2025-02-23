@@ -3,7 +3,7 @@ import os
 path = ['dataset/train/labels']
 image_path = ['dataset/train/images']
 
-# check whether the sublist contains "10", "2", "0" (frequently appearing categories in dataset)
+# check whether the sublist contains "10", "2" (frequently appearing categories in dataset)
 def contains_forbidden_strings(s):
     return any(x in s for x in ["10", "2"])
 

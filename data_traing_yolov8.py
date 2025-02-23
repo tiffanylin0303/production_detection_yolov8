@@ -21,8 +21,9 @@ def train_model():
         batch = 16,
         lr0 = 0.01,
         lrf = 0.01, 
-        # box = 8,
-        # dfl = 2
+        # box = 7.5,
+        # dfl = 1.5,
+        # cls = 0.5
         )
 
 
