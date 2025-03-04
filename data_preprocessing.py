@@ -24,14 +24,27 @@ txt_content_list, img_class, img_list, img_increase, img_increase_path = DetectC
 #     cv2.destroyAllWindows()
 
 # GaussianBlur
+# for i in range(10):
+#     image_path = img_list[i].replace("labels", "images").replace(".txt", ".jpg")
+#     # Read images
+#     original_image= cv2.imread(image_path)
+#     image_gaussian = cv2.GaussianBlur(original_image, (15, 15), 0) 
+
+#     # show original images and gaussianblur images
+#     cv2.imshow('Original Image', original_image)
+#     cv2.imshow('Gaussianblur image Image', image_gaussian)
+#     cv2.waitKey(0)
+#     cv2.destroyAllWindows()
+
+# Mediumblur 
 for i in range(10):
     image_path = img_list[i].replace("labels", "images").replace(".txt", ".jpg")
     # Read images
     original_image= cv2.imread(image_path)
-    image_gaussian = cv2.GaussianBlur(original_image, (15, 15), 0) # 指定區域單位為 (15, 15)
+    image_medium = cv2.medianBlur(original_image, 11) 
 
     # show original images and gaussianblur images
     cv2.imshow('Original Image', original_image)
-    cv2.imshow('Gaussianblur image Image', image_gaussian)
+    cv2.imshow('Mediumblur image Image', image_medium)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
